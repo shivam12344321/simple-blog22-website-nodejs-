@@ -1,0 +1,54 @@
+<div class="dashboard-page">
+  <h1>📊 My Dashboard</h1>
+
+  <div class="dashboard-header">
+    <div class="stat">
+      <span class="stat-number"><%= posts.length %></span>
+      <span class="stat-label">Posts Published</span>
+    </div>
+  </div>
+
+  <div class="dashboard-actions">
+    <a href="/posts/create" class="btn btn-primary">✍️ Write New Post</a>
+  </div>
+
+  <section class="posts-table-section">
+    <h2>Your Posts</h2>
+    
+    <% if (posts && posts.length > 0) { %>
+      <div class="table-responsive">
+        <table class="posts-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Created</th>
+              <th>Updated</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% posts.forEach(post => { %>
+              <tr>
+                <td>
+                  <a href="/post/<%= post.id %>" class="post-link"><%= post.title %></a>
+                </td>
+                <td><small><%= new Date(post.created_at).toLocaleDateString() %></small></td>
+                <td><small><%= new Date(post.updated_at).toLocaleDateString() %></small></td>
+                <td>
+                  <div class="action-buttons">
+                    <a href="/posts/edit/<%= post.id %>" class="btn btn-small btn-secondary">Edit</a>
+                    <form method="POST" action="/posts/delete/<%= post.id %>" style="display:inline;">
+                      <button type="submit" class="btn btn-small btn-danger" onclick="return confirm('Sure?')">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="empty-message">You haven't published any posts yet. <a href="/posts/create">Create one now!</a></p>
+    <% } %>
+  </section>
+</div>

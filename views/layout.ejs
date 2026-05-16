@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'Blog' %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <h1 class="logo">📝 BlogHub</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <% if (typeof user !== 'undefined' && user) { %>
+          <li><a href="/posts/create">✍️ Write</a></li>
+          <li><a href="/admin/dashboard">📊 Dashboard</a></li>
+          <li><a href="/auth/logout">Logout</a></li>
+          <li class="user-welcome">Hi, <strong><%= user.username %></strong></li>
+        <% } else { %>
+          <li><a href="/auth/login">Login</a></li>
+          <li><a href="/auth/register">Register</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <%- body %>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 BlogHub. All rights reserved. | Built with Node.js & MySQL</p>
+  </footer>
+</body>
+</html>

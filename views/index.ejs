@@ -1,0 +1,35 @@
+<div class="home-container">
+  <section class="hero">
+    <h1>Welcome to BlogHub</h1>
+    <p>Discover amazing stories and insights</p>
+    <% if (typeof user === 'undefined' || !user) { %>
+      <a href="/auth/register" class="btn btn-primary">Get Started</a>
+    <% } %>
+  </section>
+
+  <section class="posts-section">
+    <h2>Latest Posts</h2>
+    
+    <% if (posts && posts.length > 0) { %>
+      <div class="posts-grid">
+        <% posts.forEach(post => { %>
+          <article class="post-card">
+            <div class="post-header">
+              <h3><a href="/post/<%= post.id %>"><%= post.title %></a></h3>
+              <span class="post-author">By <strong><%= post.username %></strong></span>
+            </div>
+            <div class="post-content-preview">
+              <%= post.content.substring(0, 150) %>...
+            </div>
+            <div class="post-footer">
+              <small class="post-date"><%= new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %></small>
+              <a href="/post/<%= post.id %>" class="read-more">Read More →</a>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <p class="no-posts">No posts yet. <% if (user) { %><a href="/posts/create">Create the first one!</a><% } %></p>
+    <% } %>
+  </section>
+</div>
